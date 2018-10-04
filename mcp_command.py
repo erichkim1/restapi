@@ -50,7 +50,6 @@ class options(object):
 		print( '    mcp_command.py -c <command> -s <hostname> [-p <port>]' )
 		return False
 
-
 def main():
 	opts = options( sys.argv )
 	if not opts.process_args():
