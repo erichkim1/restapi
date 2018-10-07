@@ -32,6 +32,25 @@ class api(object):
 		#print( json.dumps( state_resp, indent=4 ) )
 		return state_resp
 
+	def put_command(self, command, payload):
+		""" Invokes the specified MCP command with the provided payload
+		"""
+
+		stateUrl = self.baseUrl + command
+		command_resp = requests.put(stateUrl, data=json.dumps(payload))
+
+		print(command_resp)
+
+		if command_resp.status_code == requests.codes.ok:
+			print( '{0} command accepted.'.format(command))
+			return True
+		else:
+			try:
+				error = command_resp.text
+				raise AppError( error['Reason'])
+			except Exception as ex:
+				print("Error: ", error['Reason'])
+
 	def mcpcommand(self, command):
 		"""Invokes the specified MCP command.
 		"""
